@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * 区块跟踪同步：当玩家开始跟踪一个区块时，发送该区块中所有锁数据
- * 这是客户端获知已存在的锁（世界生成/存档加载）的唯一方式
- */
+
+
+
+
 @Mixin(ChunkMap.class)
 public class ChunkMapMixin {
     @Inject(at = @At("TAIL"), method = "playerLoadedChunk")

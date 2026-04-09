@@ -14,10 +14,10 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Forge 平台 @ExpectPlatform 实现 + Capability 注册/附加
- * 包路径遵循 Architectury 约定：原始包 + ".forge"
- */
+
+
+
+
 public class LockCapabilityAccessImpl {
     public static final ResourceLocation HANDLER_ID = new ResourceLocation(Lock.MOD_ID, "lockable_handler");
     public static final ResourceLocation STORAGE_ID = new ResourceLocation(Lock.MOD_ID, "lockable_storage");
@@ -30,7 +30,7 @@ public class LockCapabilityAccessImpl {
     public static final Capability<ISelection> SELECTION = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-    // ===== @ExpectPlatform 实现 =====
+
 
     @Nullable
     public static ILockableHandler getHandler(Level world) {
@@ -47,7 +47,7 @@ public class LockCapabilityAccessImpl {
         return player.getCapability(SELECTION).orElse(null);
     }
 
-    // ===== Capability 注册 =====
+
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(ILockableHandler.class);
@@ -55,7 +55,7 @@ public class LockCapabilityAccessImpl {
         event.register(ISelection.class);
     }
 
-    // ===== Capability 附加 =====
+
 
     public static void attachToWorld(AttachCapabilitiesEvent<Level> event) {
         Level world = event.getObject();

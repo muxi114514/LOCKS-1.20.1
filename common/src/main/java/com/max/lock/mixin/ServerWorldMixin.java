@@ -16,9 +16,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-/**
- * 方块更新检测：当被锁方块被破坏时自动掉落锁物品
- */
+
+
+
 @Mixin(ServerLevel.class)
 public class ServerWorldMixin {
     @Inject(at = @At("HEAD"), method = "sendBlockUpdated(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;I)V")

@@ -13,14 +13,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 
-/**
- * S2C：区块加载时同步 Lockable 到客户端
- */
+
+
+
 public class AddLockableToChunkPacket {
     private AddLockableToChunkPacket() {
     }
 
-    /** 服务端发送 */
+    
     public static void send(ServerPlayer player, Lockable lkb, int chunkX, int chunkZ) {
         FriendlyByteBuf buf = LockNetwork.createBuf();
         Lockable.toBuf(buf, lkb);
@@ -29,7 +29,7 @@ public class AddLockableToChunkPacket {
         LockNetwork.sendToPlayer(player, LockNetwork.ADD_LOCKABLE_CHUNK, buf);
     }
 
-    /** 客户端接收处理 */
+    
     public static void handle(FriendlyByteBuf buf, NetworkManager.PacketContext ctx) {
         Lockable lkb = Lockable.fromBuf(buf);
         int x = buf.readInt();
@@ -44,7 +44,7 @@ public class AddLockableToChunkPacket {
             ILockableStorage storage = LockCapabilityAccess.getStorage(world.getChunk(x, z));
             if (storage == null)
                 return;
-            // 检查是否已加载（跨区块共享场景）
+
             Int2ObjectMap<Lockable> loaded = handler.getLoaded();
             Lockable existing = loaded.get(lkb.id);
             if (existing == null) {

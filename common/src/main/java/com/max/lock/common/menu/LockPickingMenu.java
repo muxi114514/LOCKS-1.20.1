@@ -25,10 +25,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * 撬锁迷你游戏菜单
- * 服务端处理 pin 判定，通过网络包同步结果到客户端
- */
+
+
+
+
 public class LockPickingMenu extends AbstractContainerMenu {
     public static final Component TITLE = Component.translatable(Lock.MOD_ID + ".gui.lockpicking.title");
 
@@ -50,7 +50,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
         this.sturdy = EnchantmentHelper.getItemEnchantmentLevel(LockEnchantments.STURDY.get(), lkb.stack);
         this.complexity = EnchantmentHelper.getItemEnchantmentLevel(LockEnchantments.COMPLEXITY.get(), lkb.stack);
 
-        // 隐藏的玩家背包同步
+
         for (int row = 0; row < 3; ++row)
             for (int col = 0; col < 9; ++col)
                 this.addSlot(new HiddenSlot(player.getInventory(), col + row * 9 + 9, 0, 0));
@@ -58,7 +58,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
             this.addSlot(new HiddenSlot(player.getInventory(), col, 0, 0));
     }
 
-    /** 隐藏插槽 — 保持背包同步但不在 GUI 中显示 */
+    
     private static class HiddenSlot extends Slot {
         public HiddenSlot(net.minecraft.world.Container container, int index, int x, int y) {
             super(container, index, x, y);
@@ -83,12 +83,12 @@ public class LockPickingMenu extends AbstractContainerMenu {
         return this.currIndex == this.lockable.lock.getLength();
     }
 
-    /** 回退指定步数的开锁进度 */
+    
     protected void reset(int steps) {
         this.currIndex = Math.max(0, this.currIndex - steps);
     }
 
-    /** 服务端处理撬锁尝试 */
+    
     public void tryPin(int pin) {
         if (this.isOpen())
             return;
@@ -100,7 +100,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
             this.player.level().playSound(null, this.pos.x, this.pos.y, this.pos.z,
                     LockSoundEvents.PIN_MATCH.get(), SoundSource.BLOCKS, 1f, 1f);
         } else {
-            // 在断裂判定前缓存当前撬锁器的属性（tryBreakPick 会销毁原物品）
+
             ItemStack pickBeforeBreak = this.player.getItemInHand(this.hand);
             int resetPins = pickBeforeBreak.getItem() instanceof LockPickItem
                     ? LockPickItem.getOrSetResetPins(pickBeforeBreak)
@@ -110,7 +110,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
             if (this.tryBreakPick(this.player, pin)) {
                 resetCount = Math.min(resetPins, this.currIndex);
                 this.reset(resetCount);
-                // 电击附魔效果（如果工具不免疫魔法）
+
                 if (this.shocking > 0 && !shockResistant) {
                     this.player.hurt(this.player.damageSources().magic(), this.shocking * 1.5f);
                     this.player.level().playSound(null, this.player.getX(), this.player.getY(), this.player.getZ(),
@@ -125,7 +125,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
             TryPinResultPacket.send(sp, correct, resetCount);
     }
 
-    /** 客户端处理撬锁结果 */
+    
     public void handlePin(boolean correct, int resetCount) {
         if (correct)
             ++this.currIndex;
@@ -133,7 +133,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
             this.reset(resetCount);
     }
 
-    /** 尝试破坏撬锁工具 */
+    
     protected boolean tryBreakPick(Player player, int pin) {
         ItemStack pickStack = player.getItemInHand(this.hand);
         float sturdyMod = this.sturdy == 0 ? 1f : 0.75f + this.sturdy * 0.5f;
@@ -143,7 +143,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
             return false;
         player.broadcastBreakEvent(this.hand);
         pickStack.shrink(1);
-        // 自动替换手中的撬锁工具
+
         if (pickStack.isEmpty()) {
             for (int a = 0; a < player.getInventory().getContainerSize(); ++a) {
                 ItemStack stack = player.getInventory().getItem(a);
@@ -176,9 +176,9 @@ public class LockPickingMenu extends AbstractContainerMenu {
         return ItemStack.EMPTY;
     }
 
-    // ===== 工厂和 Provider =====
 
-    /** 从网络 buf 创建客户端菜单 */
+
+    
     public static LockPickingMenu fromNetwork(int id, Inventory inv, FriendlyByteBuf buf) {
         InteractionHand hand = buf.readEnum(InteractionHand.class);
         int lockableId = buf.readInt();
@@ -187,7 +187,7 @@ public class LockPickingMenu extends AbstractContainerMenu {
         return new LockPickingMenu(LockMenuTypes.LOCK_PICKING.get(), id, inv.player, hand, lkb);
     }
 
-    /** 服务端 MenuProvider */
+    
     public static class Provider implements MenuProvider {
         public final InteractionHand hand;
         public final Lockable lockable;

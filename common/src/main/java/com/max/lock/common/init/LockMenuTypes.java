@@ -9,9 +9,9 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 
-/**
- * 菜单类型注册
- */
+
+
+
 public final class LockMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Lock.MOD_ID, Registries.MENU);
 

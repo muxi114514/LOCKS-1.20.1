@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * LevelChunk 初始化时：将 ProtoChunk 中缓存的 Lockable 注入 Capability 系统
- */
+
+
+
 @Mixin(LevelChunk.class)
 public class LevelChunkMixin {
     @Inject(at = @At("TAIL"), method = "<init>(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ProtoChunk;Lnet/minecraft/world/level/chunk/LevelChunk$PostLoadProcessor;)V")
@@ -34,10 +34,10 @@ public class LevelChunkMixin {
         for (Lockable lkb : provider.getLockables()) {
             storage.add(lkb);
             handler.getLoaded().put(lkb.id, lkb);
-            // LockableHandler 实现了 LockableListener
+
             if (handler instanceof LockableHandler lh)
                 lkb.addListener(lh);
-            // 向在线玩家同步
+
             for (ServerPlayer player : world.players())
                 AddLockableToChunkPacket.send(player, lkb,
                         chunk.getPos().x, chunk.getPos().z);

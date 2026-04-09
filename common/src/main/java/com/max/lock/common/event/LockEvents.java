@@ -11,10 +11,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-/**
- * 跨平台事件处理器（使用 Architectury Event API）
- * 注：右键方块的交互拦截已迁移到 Forge 原生事件 (LockForgeEvents)
- */
+
+
+
+
 public final class LockEvents {
     public static final Component LOCKED_MESSAGE = Component.translatable("locks.status.locked");
 
@@ -25,7 +25,7 @@ public final class LockEvents {
         TickEvent.PLAYER_PRE.register(LockEvents::onPlayerTick);
     }
 
-    /** 玩家 Tick：检测手持物品变化，清除选区 */
+    
     private static void onPlayerTick(Player player) {
         ISelection select = LockCapabilityAccess.getSelection(player);
         if (select == null || select.get() == null)
@@ -36,7 +36,7 @@ public final class LockEvents {
         select.set(null);
     }
 
-    /** 方块破坏保护（由平台事件调用） */
+    
     public static boolean canBreakLockable(Player player, BlockPos pos) {
         return !LocksServerConfig.protectLockables || player.isCreative() || !LocksUtil.locked(player.level(), pos);
     }

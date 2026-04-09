@@ -7,9 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 
-/**
- * S2C：通知客户端移除 Lockable
- */
+
+
+
 public class RemoveLockablePacket {
     private RemoveLockablePacket() {
     }

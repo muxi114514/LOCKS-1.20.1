@@ -4,9 +4,9 @@ import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 
-/**
- * S2C：服务端返回撬锁结果
- */
+
+
+
 public class TryPinResultPacket {
     private TryPinResultPacket() {
     }

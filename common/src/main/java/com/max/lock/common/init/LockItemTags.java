@@ -6,9 +6,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-/**
- * 模组物品标签引用
- */
+
+
+
 public final class LockItemTags {
     private LockItemTags() {
     }

@@ -7,13 +7,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 
-/**
- * 锁的核心数据模型，包含 ID、密码组合、锁定状态
- * 使用 LockableListener 替代已废弃的 Observable
- */
+
+
+
+
 public class LockData {
     public final int id;
-    // 密码组合：index 是顺序，value 是 pin 编号
+
     protected final byte[] combo;
     protected boolean locked;
     public final Random rng;
@@ -27,7 +27,7 @@ public class LockData {
         this.locked = locked;
     }
 
-    // ===== 监听器管理 =====
+
 
     public void addListener(LockableListener listener) {
         this.listeners.add(listener);
@@ -43,7 +43,7 @@ public class LockData {
         }
     }
 
-    // ===== NBT 序列化 =====
+
 
     private static final String KEY_ID = "Id", KEY_LENGTH = "Length", KEY_LOCKED = "Locked";
 
@@ -59,7 +59,7 @@ public class LockData {
         return nbt;
     }
 
-    // ===== 网络序列化 =====
+
 
     public static LockData fromBuf(FriendlyByteBuf buf) {
         return new LockData(buf.readInt(), buf.readByte(), buf.readBoolean());
@@ -71,7 +71,7 @@ public class LockData {
         buf.writeBoolean(lock.isLocked());
     }
 
-    // ===== 密码逻辑 =====
+
 
     public byte[] shuffle(int length) {
         byte[] combo = new byte[length];

@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-/**
- * LOCK 模组 Forge 平台入口点
- */
+
+
+
 @Mod(LockMod.MOD_ID)
 public class LockMod {
     public static final String MOD_ID = "locks";

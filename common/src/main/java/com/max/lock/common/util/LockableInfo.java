@@ -3,9 +3,9 @@ package com.max.lock.common.util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
-/**
- * 轻量级锁信息传输对象，用于 NBT 持久化时不需完整 Lockable 功能的场景
- */
+
+
+
 public class LockableInfo {
     public final Cuboid6i bb;
     public final LockData lock;

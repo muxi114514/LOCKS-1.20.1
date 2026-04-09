@@ -7,10 +7,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * 通用 Capability Provider（Forge 专用）
- * 将接口实例包装为 ICapabilityProvider
- */
+
+
+
+
 public class SimpleCapProvider<T> implements ICapabilityProvider {
     private final Capability<T> cap;
     private final LazyOptional<T> instance;

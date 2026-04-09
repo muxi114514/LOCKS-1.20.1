@@ -12,10 +12,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * 整数 AABB 区域，表示锁覆盖的多方块范围
- * 坐标遵循 [min, max) 半开区间
- */
+
+
+
+
 public class Cuboid6i {
     public final int x1, y1, z1, x2, y2, z2;
 
@@ -28,9 +28,9 @@ public class Cuboid6i {
         this.z2 = Math.max(z1, z2);
     }
 
-    /**
-     * 从两个方块坐标构造，自动+1使其包含完整方块
-     */
+    
+
+
     public Cuboid6i(BlockPos pos1, BlockPos pos2) {
         this.x1 = Math.min(pos1.getX(), pos2.getX());
         this.y1 = Math.min(pos1.getY(), pos2.getY());
@@ -40,7 +40,7 @@ public class Cuboid6i {
         this.z2 = Math.max(pos1.getZ(), pos2.getZ()) + 1;
     }
 
-    // ===== NBT 序列化 =====
+
 
     private static final String KEY_X1 = "X1", KEY_Y1 = "Y1", KEY_Z1 = "Z1",
             KEY_X2 = "X2", KEY_Y2 = "Y2", KEY_Z2 = "Z2";
@@ -62,7 +62,7 @@ public class Cuboid6i {
         return nbt;
     }
 
-    // ===== 网络序列化 =====
+
 
     public static Cuboid6i fromBuf(FriendlyByteBuf buf) {
         return new Cuboid6i(buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
@@ -77,7 +77,7 @@ public class Cuboid6i {
         buf.writeInt(bb.z2);
     }
 
-    // ===== 几何运算 =====
+
 
     public Cuboid6i offset(int x, int y, int z) {
         return new Cuboid6i(this.x1 + x, this.y1 + y, this.z1 + z, this.x2 + x, this.y2 + y, this.z2 + z);
@@ -125,7 +125,7 @@ public class Cuboid6i {
         return BlockPos.betweenClosed(this.x1, this.y1, this.z1, this.x2 - 1, this.y2 - 1, this.z2 - 1);
     }
 
-    // ===== 区块遍历 =====
+
 
     public boolean getContainedChunks(BiIntPredicate p) {
         int cx1 = this.x1 >> 4;

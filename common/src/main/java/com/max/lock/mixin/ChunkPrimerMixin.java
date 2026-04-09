@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.Unique;
 
 import net.minecraft.world.level.chunk.ProtoChunk;
 
-/**
- * 在 ProtoChunk 上注入 ILockableProvider，存储世界生成期间的锁数据
- */
+
+
+
 @Mixin(ProtoChunk.class)
 public class ChunkPrimerMixin implements ILockableProvider {
     @Unique

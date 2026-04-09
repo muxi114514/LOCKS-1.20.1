@@ -13,10 +13,10 @@ import com.max.lock.common.network.LockNetwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * LOCK 模组跨平台初始化入口
- * 由各平台入口点（Forge/Fabric）调用
- */
+
+
+
+
 public class Lock {
     public static final String MOD_ID = "locks";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

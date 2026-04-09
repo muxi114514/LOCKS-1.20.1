@@ -7,10 +7,10 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 
-/**
- * 锁在方块面上的 12 种变换状态
- * 由朝向(Direction) + 附着面(AttachFace) 组合确定
- */
+
+
+
+
 public enum Transform {
     NORTH_UP(Direction.NORTH, AttachFace.CEILING),
     SOUTH_UP(Direction.SOUTH, AttachFace.CEILING),
@@ -40,9 +40,9 @@ public enum Transform {
         this.face = face;
     }
 
-    /**
-     * 获取 Cuboid 对应面的朝向
-     */
+    
+
+
     public Direction getCuboidFace() {
         return this.face == AttachFace.CEILING ? Direction.UP
                 : this.face == AttachFace.FLOOR ? Direction.DOWN

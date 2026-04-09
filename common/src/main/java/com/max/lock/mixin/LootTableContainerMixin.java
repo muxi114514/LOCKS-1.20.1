@@ -19,13 +19,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * 拦截容器设置战利品表，根据配置的战利品表规则自动加锁
- *
- * 覆盖两条路径：
- * 1. 静态 setLootTable —— 末地城/地牢/要塞等旧式 StructurePiece 结构
- * 2. tryLoadLootTable —— 村庄等 Jigsaw 模板结构（通过 NBT 反序列化设置战利品表）
- */
+
+
+
+
+
+
+
 @Mixin(RandomizableContainerBlockEntity.class)
 public abstract class LootTableContainerMixin {
 
@@ -35,7 +35,7 @@ public abstract class LootTableContainerMixin {
     @Unique
     private static final RandomSource locks$rng = RandomSource.create();
 
-    // ===== 路径 1: 旧式结构的静态方法 =====
+
 
     @Inject(method = "setLootTable(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;Lnet/minecraft/resources/ResourceLocation;)V",
             at = @At("TAIL"))
@@ -56,7 +56,7 @@ public abstract class LootTableContainerMixin {
         LocksUtil.lockChunkByLootTable(region, pos, locks$rng, chunk, rule);
     }
 
-    // ===== 路径 2: Jigsaw 模板结构的 NBT 加载 =====
+
 
     @Inject(method = "tryLoadLootTable", at = @At("RETURN"))
     private void locks$onTryLoadLootTable(CompoundTag tag, CallbackInfoReturnable<Boolean> cir) {

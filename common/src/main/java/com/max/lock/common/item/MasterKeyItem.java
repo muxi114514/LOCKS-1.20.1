@@ -13,9 +13,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-/**
- * 万能钥匙 — 可以开/锁任意锁
- */
+
+
+
 public class MasterKeyItem extends Item {
     public MasterKeyItem(Properties props) {
         super(props.stacksTo(1));

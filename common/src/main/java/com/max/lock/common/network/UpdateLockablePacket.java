@@ -8,9 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 
-/**
- * S2C：同步 Lockable 的锁定状态更新
- */
+
+
+
 public class UpdateLockablePacket {
     private UpdateLockablePacket() {
     }

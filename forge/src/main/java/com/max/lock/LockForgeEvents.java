@@ -93,7 +93,7 @@ public final class LockForgeEvents {
                 e.setCanceled(true);
         }
 
-        // 锁核心交互：使用 Forge 原生事件正确拦截方块交互
+
         @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.HIGHEST)
         public static void onRightClick(net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock e) {
             var pos = e.getPos();
@@ -118,7 +118,7 @@ public final class LockForgeEvents {
 
             if (locked.isPresent()) {
                 Lockable lkb = locked.get();
-                // 阻止方块交互（如打开箱子），但允许物品交互（如万能钥匙的 useOn）
+
                 e.setUseBlock(net.minecraftforge.eventbus.api.Event.Result.DENY);
                 var item = stack.getItem();
                 boolean isValidUnlocker = stack.is(com.max.lock.common.init.LockItemTags.LOCK_PICKS)
@@ -128,7 +128,7 @@ public final class LockForgeEvents {
                         || (item instanceof com.max.lock.common.item.KeyRingItem
                                 && com.max.lock.common.item.KeyRingItem.containsId(stack, lkb.lock.id));
                 if (!isValidUnlocker) {
-                    // 暴力破锁判定
+
                     var breakRule = findBreakRule(stack, lkb);
                     if (breakRule != null) {
                         int sturdyLevel = net.minecraft.world.item.enchantment.EnchantmentHelper
@@ -139,7 +139,7 @@ public final class LockForgeEvents {
                         int remainingDurability = stack.getMaxDamage() - stack.getDamageValue();
 
                         if (remainingDurability < finalCost) {
-                            // 耐久不足，提示玩家
+
                             player.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
                             if (world.isClientSide)
                                 player.displayClientMessage(
@@ -152,16 +152,16 @@ public final class LockForgeEvents {
                             return;
                         }
 
-                        // 执行破锁（仅服务端）
+
                         if (!world.isClientSide) {
-                            // 扣除耐久（通过 hurtAndBreak 兼容原版耐久附魔）
+
                             stack.hurtAndBreak(finalCost, player,
                                     p -> p.broadcastBreakEvent(e.getHand()));
-                            // 掉落锁物品
+
                             world.addFreshEntity(new net.minecraft.world.entity.item.ItemEntity(
                                     world, pos.getX() + 0.5d, pos.getY() + 0.5d,
                                     pos.getZ() + 0.5d, lkb.stack.copy()));
-                            // 电击附魔惩罚
+
                             if (com.max.lock.common.config.LocksServerConfig.shockingDamageOnBreak) {
                                 int shockLevel = net.minecraft.world.item.enchantment.EnchantmentHelper
                                         .getItemEnchantmentLevel(
@@ -175,17 +175,17 @@ public final class LockForgeEvents {
                                             net.minecraft.sounds.SoundSource.BLOCKS, 1f, 1f);
                                 }
                             }
-                            // 移除锁实体
+
                             handler.remove(lkb.id);
                         }
-                        // 播放破锁音效
+
                         world.playSound(player, pos,
                                 net.minecraft.sounds.SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR,
                                 net.minecraft.sounds.SoundSource.BLOCKS, 0.6f, 1.2f);
                         player.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
                         return;
                     }
-                    // 无匹配规则：播放锁摇晃
+
                     lkb.swing(20);
                     world.playSound(player, pos, com.max.lock.common.init.LockSoundEvents.LOCK_RATTLE.get(),
                             net.minecraft.sounds.SoundSource.BLOCKS, 1f, 1f);
@@ -196,7 +196,7 @@ public final class LockForgeEvents {
                 return;
             }
 
-            // 空手蹲下移除已开锁
+
             if (com.max.lock.common.config.LocksServerConfig.allowRemovingLocks
                     && player.isShiftKeyDown() && stack.isEmpty()) {
                 var match = java.util.Arrays.stream(intersect)
@@ -217,7 +217,7 @@ public final class LockForgeEvents {
             }
         }
 
-        /** 查找匹配的破锁规则 */
+        
         private static com.max.lock.common.config.LocksServerConfig.BreakRule findBreakRule(
                 net.minecraft.world.item.ItemStack toolStack, Lockable lockable) {
             var rules = com.max.lock.common.config.LocksServerConfig.getBreakRules();
@@ -230,14 +230,14 @@ public final class LockForgeEvents {
             return null;
         }
 
-        // 红石信号屏蔽：锁住的方块不传播邻居更新
+
         @SubscribeEvent
         public static void onNeighborNotify(BlockEvent.NeighborNotifyEvent e) {
             if (e.getLevel() instanceof Level level && LocksUtil.locked(level, e.getPos()))
                 e.setCanceled(true);
         }
 
-        // ===== Capability 附加 =====
+
 
         @SubscribeEvent
         public static void onAttachWorldCaps(AttachCapabilitiesEvent<Level> e) {

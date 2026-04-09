@@ -14,9 +14,9 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 
-/**
- * 阻止已上锁箱子被合并为双箱子
- */
+
+
+
 @Mixin(ChestBlock.class)
 public class ChestBlockMixin {
     @Inject(at = @At("HEAD"), method = "candidatePartnerFacing(Lnet/minecraft/world/item/context/BlockPlaceContext;Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Direction;", cancellable = true)

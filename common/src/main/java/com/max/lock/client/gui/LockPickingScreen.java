@@ -62,7 +62,7 @@ public class LockPickingScreen extends AbstractContainerScreen<LockPickingMenu> 
 
     public final int length;
     public final boolean[] pins;
-    /** 记录解锁顺序（栈：最后解开的在顶部） */
+    
     protected final ArrayDeque<Integer> solveOrder;
     public final InteractionHand hand;
     protected int currPin;
@@ -239,7 +239,7 @@ public class LockPickingScreen extends AbstractContainerScreen<LockPickingMenu> 
             this.reset(resetCount);
     }
 
-    /** 从解锁栈顶弹出 count 个销子并复位（最近解开的先复位） */
+    
     public void reset(int count) {
         for (int i = 0; i < count && !this.solveOrder.isEmpty(); ++i) {
             int a = this.solveOrder.pop();

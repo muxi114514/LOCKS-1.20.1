@@ -8,9 +8,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
-/**
- * 自定义配方序列化器注册
- */
+
+
+
 public final class LockRecipeSerializers {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(Lock.MOD_ID,
             Registries.RECIPE_SERIALIZER);

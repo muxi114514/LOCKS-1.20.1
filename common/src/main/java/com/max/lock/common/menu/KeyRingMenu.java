@@ -16,10 +16,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.SimpleContainer;
 
-/**
- * 钥匙圈容器菜单
- * 存储钥匙的便携式物品栏
- */
+
+
+
+
 public class KeyRingMenu extends AbstractContainerMenu {
     public final ItemStack ringStack;
     public final SimpleContainer keyInv;
@@ -38,12 +38,12 @@ public class KeyRingMenu extends AbstractContainerMenu {
         };
         loadFromStack(ringStack, this.keyInv);
 
-        // 钥匙圈物品栏
+
         for (int row = 0; row < rows; ++row)
             for (int col = 0; col < 9; ++col)
                 this.addSlot(new KeySlot(this.keyInv, player, col + row * 9, 8 + col * 18, 18 + row * 18));
 
-        // 玩家背包
+
         int offset = (rows - 4) * 18;
         for (int row = 0; row < 3; ++row)
             for (int col = 0; col < 9; ++col)
@@ -52,7 +52,7 @@ public class KeyRingMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(player.getInventory(), col, 8 + col * 18, 161 + offset));
     }
 
-    /** 钥匙专用插槽，带音效 */
+    
     private static class KeySlot extends Slot {
         private final Player player;
 
@@ -101,7 +101,7 @@ public class KeyRingMenu extends AbstractContainerMenu {
         return result;
     }
 
-    // ===== NBT 持久化 =====
+
 
     private static void saveToStack(ItemStack ringStack, SimpleContainer inv) {
         var list = new net.minecraft.nbt.ListTag();
@@ -129,7 +129,7 @@ public class KeyRingMenu extends AbstractContainerMenu {
         }
     }
 
-    // ===== 工厂 =====
+
 
     public static KeyRingMenu fromNetwork(int id, Inventory inv, FriendlyByteBuf buf) {
         InteractionHand hand = buf.readEnum(InteractionHand.class);

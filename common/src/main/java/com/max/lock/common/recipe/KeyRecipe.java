@@ -13,10 +13,10 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-/**
- * 钥匙合成配方：锁/钥匙（含ID）+ 空白钥匙 → 专用钥匙
- * 锁在合成后保留不消耗
- */
+
+
+
+
 public class KeyRecipe extends CustomRecipe {
     public KeyRecipe(ResourceLocation id, CraftingBookCategory category) {
         super(id, category);
@@ -78,7 +78,7 @@ public class KeyRecipe extends CustomRecipe {
             ItemStack stack = inv.getItem(i);
             if (!stack.hasTag() || !stack.getTag().contains(LockingItem.KEY_ID))
                 continue;
-            // 保留带ID的物品（锁/钥匙）不消耗
+
             list.set(i, stack.copy());
             break;
         }

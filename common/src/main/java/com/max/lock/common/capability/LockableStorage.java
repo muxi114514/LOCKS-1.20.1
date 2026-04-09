@@ -8,10 +8,10 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.chunk.LevelChunk;
 
-/**
- * Chunk 级锁存储实现
- * 存储属于此区块的 Lockable 引用（可能与其他区块共享同一 Lockable）
- */
+
+
+
+
 public class LockableStorage implements ILockableStorage {
     private final LevelChunk chunk;
     private final Int2ObjectMap<Lockable> lockables = new Int2ObjectLinkedOpenHashMap<>();
@@ -47,7 +47,7 @@ public class LockableStorage implements ILockableStorage {
 
     @Override
     public void deserializeNBT(ListTag nbt) {
-        // 获取 World 级 handler 以检查是否已加载（跨区块共享的 Lockable）
+
         ILockableHandler handler = LockCapabilityAccess.getHandler(this.chunk.getLevel());
         if (handler == null)
             return;
@@ -57,7 +57,7 @@ public class LockableStorage implements ILockableStorage {
             int id = Lockable.idFromNbt(nbt1);
             Lockable lkb = loaded.get(id);
             if (lkb == null) {
-                // 首次加载此 Lockable
+
                 lkb = Lockable.fromNbt(nbt1);
                 loaded.put(lkb.id, lkb);
                 if (handler instanceof LockableHandler lh) {

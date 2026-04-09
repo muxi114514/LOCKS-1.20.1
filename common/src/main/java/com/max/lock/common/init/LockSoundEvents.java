@@ -7,9 +7,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
-/**
- * 模组音效注册
- */
+
+
+
 public final class LockSoundEvents {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Lock.MOD_ID,
             Registries.SOUND_EVENT);

@@ -18,9 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 
-/**
- * 爆炸抗性增强：锁住的方块获得额外爆炸抗性
- */
+
+
+
 @Mixin(ExplosionDamageCalculator.class)
 public class ExplosionDamageCalculatorMixin {
     @Inject(at = @At("RETURN"), method = "getBlockExplosionResistance(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Ljava/util/Optional;", cancellable = true)

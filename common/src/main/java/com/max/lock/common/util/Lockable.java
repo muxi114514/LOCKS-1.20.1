@@ -19,15 +19,15 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/**
- * 核心锁实体数据，表示一个附加到方块上的锁
- * 使用 LockableListener 替代已废弃的 Observable/Observer
- */
+
+
+
+
 public class Lockable implements LockableListener {
 
-    /**
-     * 锁在世界中的渲染状态缓存
-     */
+    
+
+
     public static class State {
         public static final AABB VERT_Z_BB = new AABB(-2d / 16d, -3d / 16d, 0.5d / 16d, 2d / 16d, 3d / 16d, 0.5d / 16d),
                 VERT_X_BB = LocksUtil.rotateY(VERT_Z_BB),
@@ -76,7 +76,7 @@ public class Lockable implements LockableListener {
         lock.addListener(this);
     }
 
-    // ===== 监听器管理 =====
+
 
     public void addListener(LockableListener listener) {
         this.listeners.add(listener);
@@ -95,11 +95,11 @@ public class Lockable implements LockableListener {
     @Override
     public void onChanged(Object source) {
         this.notifyListeners();
-        // 同步物品的 Open 状态，使渲染模型切换为开/关锁
+
         com.max.lock.common.item.LockItem.setOpen(this.stack, !this.lock.isLocked());
     }
 
-    // ===== NBT 序列化 =====
+
 
     public static final String KEY_BB = "Bb", KEY_LOCK = "Lock", KEY_TRANSFORM = "Transform", KEY_STACK = "Stack",
             KEY_ID = "Id";
@@ -129,7 +129,7 @@ public class Lockable implements LockableListener {
         return nbt.getInt(KEY_ID);
     }
 
-    // ===== 网络序列化 =====
+
 
     public static Lockable fromBuf(FriendlyByteBuf buf) {
         return new Lockable(
@@ -148,7 +148,7 @@ public class Lockable implements LockableListener {
         buf.writeInt(lkb.id);
     }
 
-    // ===== 动画 =====
+
 
     public void tick() {
         this.oldSwingTicks = this.swingTicks;
@@ -160,11 +160,11 @@ public class Lockable implements LockableListener {
         this.swingTicks = this.oldSwingTicks = this.maxSwingTicks = ticks;
     }
 
-    // ===== 渲染状态计算 =====
 
-    /**
-     * 计算锁在世界中的位置和朝向，带缓存机制
-     */
+
+    
+
+
     @SuppressWarnings("deprecation")
     public State getLockState(Level world) {
         List<BlockState> states = new ArrayList<>(this.bb.volume());

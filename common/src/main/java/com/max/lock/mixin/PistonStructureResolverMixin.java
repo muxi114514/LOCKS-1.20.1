@@ -11,9 +11,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 
-/**
- * 阻止活塞结构解析器解析锁住的方块
- */
+
+
+
 @Mixin(PistonStructureResolver.class)
 public class PistonStructureResolverMixin {
     @Shadow

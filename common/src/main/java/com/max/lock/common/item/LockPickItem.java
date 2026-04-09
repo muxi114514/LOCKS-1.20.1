@@ -25,16 +25,16 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 
-/**
- * 撬锁工具 — 打开撬锁迷你游戏
- */
+
+
+
 public class LockPickItem extends Item {
     public static final Component TOO_COMPLEX_MESSAGE = Component.translatable(Lock.MOD_ID + ".status.too_complex");
 
     public final float strength;
-    /** 断裂时回退的销子数量（Integer.MAX_VALUE = 全部归零） */
+    
     public final int resetPins;
-    /** 是否免疫通电附魔的魔法伤害 */
+    
     public final boolean shockResistant;
 
     public LockPickItem(float strength, int resetPins, boolean shockResistant, Properties props) {

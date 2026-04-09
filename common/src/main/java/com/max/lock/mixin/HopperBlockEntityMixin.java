@@ -11,9 +11,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
-/**
- * 阻止漏斗从已上锁容器中吸取物品
- */
+
+
+
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "getContainerAt(Lnet/minecraft/world/level/Level;DDD)Lnet/minecraft/world/Container;", cancellable = true)

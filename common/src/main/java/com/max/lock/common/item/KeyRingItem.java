@@ -20,9 +20,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-/**
- * 钥匙圈物品 — 批量携带钥匙并批量匹配锁
- */
+
+
+
 public class KeyRingItem extends Item {
     public final int rows;
 
@@ -31,7 +31,7 @@ public class KeyRingItem extends Item {
         this.rows = rows;
     }
 
-    /** 检查钥匙圈中是否包含指定 ID 的钥匙 */
+    
     public static boolean containsId(ItemStack stack, int id) {
         if (!stack.hasTag() || !stack.getTag().contains("Items"))
             return false;
@@ -44,7 +44,7 @@ public class KeyRingItem extends Item {
         return false;
     }
 
-    /** 右键空气：打开钥匙圈 GUI */
+    
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -57,7 +57,7 @@ public class KeyRingItem extends Item {
         return InteractionResultHolder.pass(stack);
     }
 
-    /** 右键方块：尝试用钥匙圈中的钥匙开锁 */
+    
     @Override
     public InteractionResult useOn(UseOnContext ctx) {
         Level world = ctx.getLevel();
@@ -66,7 +66,7 @@ public class KeyRingItem extends Item {
         List<Lockable> intersect = LocksUtil.intersecting(world, pos).collect(Collectors.toList());
         if (intersect.isEmpty())
             return InteractionResult.PASS;
-        // 遍历钥匙圈中的所有钥匙
+
         if (!ringStack.hasTag() || !ringStack.getTag().contains("Items"))
             return InteractionResult.PASS;
         var list = ringStack.getTag().getList("Items", net.minecraft.nbt.Tag.TAG_COMPOUND);

@@ -11,13 +11,13 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 
-/**
- * 模组物品注册（20个物品）
- */
+
+
+
 public final class LockItems {
         public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Lock.MOD_ID, Registries.ITEM);
 
-        // 材料物品
+
         public static final RegistrySupplier<Item> SPRING = ITEMS.register("spring",
                         () -> new Item(new Item.Properties())),
                         WOOD_LOCK_MECHANISM = ITEMS.register("wood_lock_mechanism",
@@ -28,7 +28,7 @@ public final class LockItems {
                                         () -> new Item(new Item.Properties())),
                         KEY_BLANK = ITEMS.register("key_blank", () -> new Item(new Item.Properties()));
 
-        // 锁（length, enchVal, resist）
+
         public static final RegistrySupplier<Item> WOOD_LOCK = ITEMS.register("wood_lock",
                         () -> new LockItem(5, 15, 4, new Item.Properties())),
                         IRON_LOCK = ITEMS.register("iron_lock", () -> new LockItem(7, 14, 12, new Item.Properties())),
@@ -39,16 +39,16 @@ public final class LockItems {
                         NETHERITE_LOCK = ITEMS.register("netherite_lock",
                                         () -> new LockItem(13, 15, 200, new Item.Properties()));
 
-        // 钥匙
+
         public static final RegistrySupplier<Item> KEY = ITEMS.register("key",
                         () -> new KeyItem(new Item.Properties())),
                         MASTER_KEY = ITEMS.register("master_key", () -> new MasterKeyItem(new Item.Properties()));
 
-        // 钥匙圈（1行3列）
+
         public static final RegistrySupplier<Item> KEY_RING = ITEMS.register("key_ring",
                         () -> new KeyRingItem(1, new Item.Properties()));
 
-        // 撬锁工具（strength 值决定能撬多复杂的锁，resetPins 决定断裂时回退销子数，shockResistant 决定是否免疫魔法反伤）
+
         public static final RegistrySupplier<Item> WOOD_LOCK_PICK = ITEMS.register("wood_lock_pick",
                         () -> new LockPickItem(0.20f, Integer.MAX_VALUE, false, new Item.Properties())),
                         IRON_LOCK_PICK = ITEMS.register("iron_lock_pick",

@@ -12,9 +12,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-/**
- * 钥匙物品 — 用于开锁/锁定与自身 ID 匹配的锁
- */
+
+
+
 public class KeyItem extends LockingItem {
     public KeyItem(Properties props) {
         super(props);

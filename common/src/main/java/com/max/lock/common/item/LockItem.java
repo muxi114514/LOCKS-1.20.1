@@ -36,10 +36,10 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
-/**
- * 锁物品 — 可附加到方块上的核心物品
- * 支持 easyLock（一键锁定）和 freeLock（选区锁定）两种模式
- */
+
+
+
+
 public class LockItem extends LockingItem {
     public final int length;
     public final int enchantmentValue;
@@ -52,7 +52,7 @@ public class LockItem extends LockingItem {
         this.resistance = resist;
     }
 
-    // ===== 物品 NBT 操作 =====
+
 
     public static final String KEY_OPEN = "Open";
 
@@ -77,19 +77,19 @@ public class LockItem extends LockingItem {
         return ((LockItem) stack.getItem()).resistance;
     }
 
-    // ===== 放锁逻辑 =====
+
 
     @Override
     public InteractionResult useOn(UseOnContext ctx) {
         Level world = ctx.getLevel();
         BlockPos pos = ctx.getClickedPos();
-        // 检查白名单和已有锁
+
         if (!LocksServerConfig.canLock(world, pos) || LocksUtil.intersecting(world, pos).findAny().isPresent())
             return InteractionResult.PASS;
         return LocksServerConfig.easyLock ? this.easyLock(ctx) : this.freeLock(ctx);
     }
 
-    /** 一键锁定模式：自动检测双方块（箱子/门等） */
+    
     private InteractionResult easyLock(UseOnContext ctx) {
         Player player = ctx.getPlayer();
         Level world = ctx.getLevel();
@@ -99,11 +99,11 @@ public class LockItem extends LockingItem {
             return InteractionResult.SUCCESS;
         BlockState state = world.getBlockState(pos);
         BlockPos pos1 = pos;
-        // 检测双箱子
+
         if (state.hasProperty(BlockStateProperties.CHEST_TYPE)
                 && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE)
             pos1 = pos.relative(ChestBlock.getConnectedDirection(state));
-        // 检测双方块（门等）
+
         else if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
             pos1 = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER
                     ? pos.above()
@@ -121,7 +121,7 @@ public class LockItem extends LockingItem {
         return this.placeLock(ctx, pos, pos1);
     }
 
-    /** 选区锁定模式：玩家选择两个方块 */
+    
     @SuppressWarnings("unused")
     private InteractionResult freeLock(UseOnContext ctx) {
         Player player = ctx.getPlayer();
@@ -142,7 +142,7 @@ public class LockItem extends LockingItem {
         return this.placeLock(ctx, pos1, pos);
     }
 
-    /** 实际放置锁的核心逻辑 */
+    
     private InteractionResult placeLock(UseOnContext ctx, BlockPos pos1, BlockPos pos2) {
         Level world = ctx.getLevel();
         Player player = ctx.getPlayer();
@@ -194,7 +194,7 @@ public class LockItem extends LockingItem {
                 .withStyle(ChatFormatting.DARK_GREEN));
     }
 
-    /** 从物品 NBT 创建 LockData */
+    
     public static LockData createLock(ItemStack stack) {
         return new LockData(LockingItem.getOrSetId(stack), LockItem.getOrSetLength(stack), !LockItem.isOpen(stack));
     }

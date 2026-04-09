@@ -15,9 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-/**
- * 锁和钥匙的基类，管理锁 ID 的生成和显示
- */
+
+
+
 public class LockingItem extends Item {
     public LockingItem(Properties props) {
         super(props.stacksTo(1));
@@ -25,13 +25,13 @@ public class LockingItem extends Item {
 
     public static final String KEY_ID = "Id";
 
-    /** 将 ID 从一个物品复制到另一个 */
+    
     public static ItemStack copyId(ItemStack from, ItemStack to) {
         to.getOrCreateTag().putInt(KEY_ID, getOrSetId(from));
         return to;
     }
 
-    /** 获取或生成唯一锁 ID */
+    
     public static int getOrSetId(ItemStack stack) {
         CompoundTag nbt = stack.getOrCreateTag();
         if (!nbt.contains(KEY_ID))
