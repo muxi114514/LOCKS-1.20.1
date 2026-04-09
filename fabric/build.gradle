@@ -1,0 +1,110 @@
+plugins {
+    id 'com.gradleup.shadow' version '8.3.6'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+loom {
+    runs {
+        client {
+            client()
+            name "Fabric Client"
+            runDir "run/client"
+            programArgs "--username", "Player1"
+        }
+        server {
+            server()
+            name "Fabric Server"
+            runDir "run/server"
+        }
+    }
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
+shadowJar {
+    exclude "architectury.common.json"
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier.set("dev-shadow")
+    exclude 'META-INF/versions/**'
+    mergeServiceFiles()
+    exclude 'module-info.class'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+}
+
+jar {
+    archiveClassifier.set("dev")
+    from("${rootProject.projectDir}/LICENSE") {
+        rename { "${it}_${base.archivesName.get()}" }
+    }
+    manifest {
+        attributes([
+            'Specification-Title'    : 'LOCK',
+            'Specification-Vendor'   : 'Max',
+            'Specification-Version'  : '1',
+            'Implementation-Title'   : project.name,
+            'Implementation-Version' : project.version,
+            'Implementation-Vendor'  : 'Max'
+        ])
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.architectury.dev/' }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    def replaceProperties = [
+        mod_id         : 'locks',
+        mod_name       : 'LOCK',
+        mod_version    : project.version,
+        mod_authors    : 'Max',
+        mod_description: 'LOCK mod ported to 1.20.1 with Forge & Fabric support.'
+    ]
+    inputs.properties replaceProperties
+    filesMatching(['fabric.mod.json']) {
+        expand replaceProperties
+    }
+}
+
+dependencies {
+    // Common 模块
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    // Fabric 平台
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    // Architectury API（Jar-in-Jar 内嵌）
+    modApi("dev.architectury:architectury-fabric:${architectury_api_version}")
+    include("dev.architectury:architectury-fabric:${architectury_api_version}")
+}
+
+sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}

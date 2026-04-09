@@ -1,0 +1,29 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.max.lock.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "locks-common-common-refmap.json",
+    "mixins": [
+        "ServerWorldMixin",
+        "ChestBlockMixin",
+        "HopperBlockEntityMixin",
+        "PistonBaseBlockMixin",
+        "PistonStructureResolverMixin",
+        "ExplosionDamageCalculatorMixin",
+        "ExplosionAccessor",
+        "ChunkPrimerMixin",
+        "WorldGenRegionMixin",
+        "LootTableContainerMixin",
+        "LevelChunkMixin",
+        "ChunkMapMixin",
+        "forge.BaseContainerBlockEntityMixin",
+        "forge.ChestBlockEntityMixin",
+        "forge.AbstractFurnaceBlockEntityMixin"
+    ],
+    "client": [],
+    "server": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.max.lock.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "WorldMixin",
+        "ServerWorldMixin",
+        "ChestBlockMixin",
+        "HopperBlockEntityMixin",
+        "PistonBaseBlockMixin",
+        "PistonStructureResolverMixin",
+        "ExplosionDamageCalculatorMixin",
+        "ExplosionAccessor",
+        "ChunkPrimerMixin",
+        "WorldGenRegionMixin",
+        "LootTableContainerMixin",
+        "LevelChunkMixin",
+        "ChunkMapMixin"
+    ],
+    "client": [],
+    "server": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

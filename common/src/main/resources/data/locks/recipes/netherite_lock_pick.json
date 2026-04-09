@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "locks:diamond_lock_pick"
+        },
+        {
+            "item": "minecraft:netherite_scrap"
+        }
+    ],
+    "result": {
+        "item": "locks:netherite_lock_pick"
+    }
+}

@@ -1,0 +1,8 @@
+architectury {
+    common("forge", "fabric")
+}
+
+dependencies {
+    // Architectury API
+    modImplementation("dev.architectury:architectury:${architectury_api_version}")
+}
