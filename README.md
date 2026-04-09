@@ -1,6 +1,6 @@
 # Locks 1.20.1 (多平台锁模组 / Cross-platform Lock Mod)
 
-![Locks Reforged Logo](./logo.png)
+![Locks Reborn Logo](./logo.png)
 
 基于 Architectury 框架开发的 Minecraft 1.20.1 多平台（Forge/Fabric）锁与安全机制模组。
 A Minecraft 1.20.1 cross-platform (Forge/Fabric) lock and security mod built with the Architectury API.
