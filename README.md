@@ -12,6 +12,9 @@ A Minecraft 1.20.1 cross-platform (Forge/Fabric) lock and security mod built wit
 
 **Locks** is a mod focused on implementing physical container locks and related gameplay mechanics in Minecraft. Not only does it protect your private property, but it also deeply integrates with world-generated structures, bringing a more immersive lock-picking and treasure-hunting experience when you explore dungeons, villages, and other ruins.
 
+> ⚠️ **注意 (Note)**: 本模组的 **Fabric** 版本目前仍在活跃开发中，尚未完全移植或开发完毕。
+> The **Fabric** version of this mod is currently under active development and not fully complete yet. Expect the Forge version to be the most stable right now.
+
 ## ⚙️ 核心机制详解 / Detailed Mechanics
 
 ### 1. 锁与保护机制 / Locking Mechanism
@@ -37,6 +40,8 @@ A Minecraft 1.20.1 cross-platform (Forge/Fabric) lock and security mod built wit
 ### 4. 暴力破锁机制 / Brute-force Lock Breaking
 *   **强拆行为 (Forceful Breaking)**: 缺乏耐心的玩家可以选择拿起斧头等高伤害工具，直接对准锁具进行左键猛烈敲击以将物理锁具破坏。  
     Impatient players can grab high-damage tools like axes and directly left-click the lock fiercely to smash it into pieces.
+*   **自定义破拆工具 (Customizable Breaking Tools)**: 谁说只能用斧头？你可以通过配置文件自由注册并修改哪些特定的物品或工具可以被用来暴力破拆锁具，以及它们的效率。  
+    Who says you can only use axes? You can totally configure and customize which specific items/tools can be used to forcefully break locks via the configuration files, along with their durability interactions.
 *   **耐久度惩罚 (Durability Penalty)**: 破锁并非毫无代价。每次攻击锁具都会大量消耗并扣除工具的真实耐久度。低级工具面对高级锁时不但破防效率极低，还极容易让工具直接在你手中彻底碎裂。  
     Breaking locks comes with a massive cost. Each strike consumes a large amount of the tool's actual durability. A low-tier tool facing a high-tier lock will not only be extremely inefficient but also easily shatter completely in your hands.
 *   **惩罚反伤系统 (Shock & Immunity Mechanics)**: 高级锁具受到暴力强拆时，可能会触发自身蕴含的特殊能量（如电击反伤惩罚），对玩家造成直接伤害。但玩家如果使用金或下界合金等具有极强魔力和绝缘属性的材质制造的工具来破拆它，系统会触发免疫豁免机制保护玩家。  
