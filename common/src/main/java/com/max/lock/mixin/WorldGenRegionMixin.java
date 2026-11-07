@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,7 +43,14 @@ public class WorldGenRegionMixin {
         WorldGenContext.CURRENT_REGION.set((WorldGenRegion) (Object) this);
 
 
-        if (!state.hasBlockEntity())
+        // Only look at blocks that actually create a loot container. Some mods mark blocks as
+        // EntityBlocks that never create a block entity (e.g. Visual Workbench makes every
+        // CraftingTableBlock subclass an EntityBlock, including smithing and fletching tables).
+        // Asking the WorldGenRegion for those logs "Tried to access a block entity before it was
+        // created", so probe the block itself first instead of going through the world.
+        if (!(state.getBlock() instanceof EntityBlock entityBlock))
+            return;
+        if (!(entityBlock.newBlockEntity(blockPos, state) instanceof RandomizableContainerBlockEntity))
             return;
         BlockEntity be = ((LevelAccessor) (Object) this).getBlockEntity(blockPos);
         if (!(be instanceof RandomizableContainerBlockEntity))
